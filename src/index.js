@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChainId, ThirdwebProvider } from '@thirdweb-dev/react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // This is the chainId your dApp will work on.
 const activeChainId = ChainId.Mainnet;
