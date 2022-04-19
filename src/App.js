@@ -24,7 +24,8 @@ function App() {
       presale: "",
       costPrice: "",
       wallet: "",
-      nftGive: ""
+      nftGive: "",
+      setBaseUri: ""
     });
 
 
@@ -78,6 +79,13 @@ function App() {
             </form>
           </div>
           <div>
+            <form onSubmit={(e) => setBaseUri(e)} >
+              <p>Set Metadata</p>
+              <input type="text" placeholder="true" name="setBaseUri" value={data.setBaseUri} onChange={(e) => handle(e) } />
+              <button type="submit" >Set Metadata</button>
+            </form>
+          </div>
+          <div>
             <form onSubmit={(e) => reveal(e)} >
               <p>Set Reveal</p>
               <input type="text" placeholder="true" name="reveals" value={data.reveals} onChange={(e) => handle(e) } />
@@ -112,6 +120,22 @@ function App() {
       const signer = provider.getSigner();
       const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, SmoothApe.abi, signer);
       let revealTxn = await connectedContract.reveal(data.reveals);
+      console.log("setting reveal..... please wait");
+      await revealTxn.wait();
+      
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const setBaseUri = async (e) => {
+    e.preventDefault();
+    try {
+      const { ethereum } = window;
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, SmoothApe.abi, signer);
+      let revealTxn = await connectedContract.setBaseURI(data.setBaseUri);
       console.log("setting reveal..... please wait");
       await revealTxn.wait();
       
